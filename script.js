@@ -84,8 +84,16 @@ function addTodoToDOM(todo) {
 function deleteTodo(id) {
     const todoItem = document.querySelector(`[data-id="${id}"]`);
     if (todoItem) {
-        todoItem.remove();
-        saveTodos();
+        todoItem.classList.add('removing');
+        // Get animation duration from CSS variable (e.g., '300ms')
+        const duration = getComputedStyle(document.documentElement)
+            .getPropertyValue('--animation-duration').trim();
+        // parseFloat extracts numeric value and ignores 'ms' suffix
+        const animationDuration = parseFloat(duration) || 300;
+        setTimeout(() => {
+            todoItem.remove();
+            saveTodos();
+        }, animationDuration);
     }
 }
 
