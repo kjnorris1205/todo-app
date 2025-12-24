@@ -117,6 +117,19 @@ h1 {
     transform: scale(0.95);
 }
 
+.todo-checkbox {
+    width: 20px;
+    height: 20px;
+    margin-right: 12px;
+    cursor: pointer;
+    accent-color: #667eea;
+}
+
+.todo-item.completed .todo-text {
+    text-decoration: line-through;
+    color: #999;
+}
+
 .empty-message {
     text-align: center;
     color: #999;

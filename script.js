@@ -46,6 +46,17 @@ function addTodoToDOM(todo) {
     const li = document.createElement('li');
     li.className = 'todo-item';
     li.dataset.id = todo.id;
+    if (todo.completed) {
+        li.classList.add('completed');
+    }
+    
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    checkbox.className = 'todo-checkbox';
+    checkbox.checked = todo.completed || false;
+    checkbox.addEventListener('change', () => {
+        toggleTodo(todo.id);
+    });
     
     const span = document.createElement('span');
     span.className = 'todo-text';
@@ -58,6 +69,7 @@ function addTodoToDOM(todo) {
         deleteTodo(todo.id);
     });
     
+    li.appendChild(checkbox);
     li.appendChild(span);
     li.appendChild(deleteBtn);
     todoList.appendChild(li);
@@ -71,10 +83,19 @@ function deleteTodo(id) {
     }
 }
 
+function toggleTodo(id) {
+    const todoItem = document.querySelector(`[data-id="${id}"]`);
+    if (todoItem) {
+        todoItem.classList.toggle('completed');
+        saveTodos();
+    }
+}
+
 function saveTodos() {
     const todos = Array.from(document.querySelectorAll('.todo-item')).map(item => ({
         id: parseInt(item.dataset.id),
-        text: item.querySelector('.todo-text').textContent
+        text: item.querySelector('.todo-text').textContent,
+        completed: item.classList.contains('completed')
     }));
     localStorage.setItem('todos', JSON.stringify(todos));
 }
