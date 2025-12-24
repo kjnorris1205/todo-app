@@ -1,10 +1,13 @@
 const todoInput = document.getElementById('todoInput');
 const addBtn = document.getElementById('addBtn');
 const todoList = document.getElementById('todoList');
+const themeToggle = document.getElementById('themeToggle');
+const themeIcon = document.querySelector('.theme-icon');
 
-// Load todos from localStorage on page load
+// Load todos and theme from localStorage on page load
 document.addEventListener('DOMContentLoaded', () => {
     loadTodos();
+    loadTheme();
 });
 
 // Add todo on button click
@@ -16,6 +19,9 @@ todoInput.addEventListener('keypress', (e) => {
         addTodo();
     }
 });
+
+// Toggle theme on button click
+themeToggle.addEventListener('click', toggleTheme);
 
 function addTodo() {
     const todoText = todoInput.value.trim();
@@ -109,5 +115,22 @@ function loadTodos() {
         } catch (e) {
             console.error('Error loading todos:', e);
         }
+    }
+}
+
+function toggleTheme() {
+    document.body.classList.toggle('dark-theme');
+    const isDark = document.body.classList.contains('dark-theme');
+    themeIcon.textContent = isDark ? '☀️' : '🌙';
+    localStorage.setItem('theme', isDark ? 'dark' : 'light');
+}
+
+function loadTheme() {
+    const savedTheme = localStorage.getItem('theme');
+    if (savedTheme === 'dark') {
+        document.body.classList.add('dark-theme');
+        themeIcon.textContent = '☀️';
+    } else {
+        themeIcon.textContent = '🌙';
     }
 }

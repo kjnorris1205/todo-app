@@ -1,3 +1,41 @@
+:root {
+    --bg-gradient-start: #667eea;
+    --bg-gradient-end: #764ba2;
+    --container-bg: #ffffff;
+    --text-primary: #333333;
+    --text-secondary: #999999;
+    --input-border: #e0e0e0;
+    --input-focus: #667eea;
+    --button-bg: #667eea;
+    --button-hover: #5568d3;
+    --todo-bg: #f9f9f9;
+    --todo-hover: #f0f0f0;
+    --border-accent: #667eea;
+    --delete-bg: #ff6b6b;
+    --delete-hover: #ff5252;
+    --shadow: rgba(0, 0, 0, 0.2);
+    --shadow-hover: rgba(0, 0, 0, 0.1);
+}
+
+body.dark-theme {
+    --bg-gradient-start: #1a1a2e;
+    --bg-gradient-end: #16213e;
+    --container-bg: #0f3460;
+    --text-primary: #e0e0e0;
+    --text-secondary: #a0a0a0;
+    --input-border: #1a1a2e;
+    --input-focus: #e94560;
+    --button-bg: #e94560;
+    --button-hover: #d63851;
+    --todo-bg: #1a1a2e;
+    --todo-hover: #16213e;
+    --border-accent: #e94560;
+    --delete-bg: #e94560;
+    --delete-hover: #d63851;
+    --shadow: rgba(0, 0, 0, 0.5);
+    --shadow-hover: rgba(0, 0, 0, 0.3);
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -6,25 +44,55 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: linear-gradient(135deg, var(--bg-gradient-start) 0%, var(--bg-gradient-end) 100%);
     min-height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
     padding: 20px;
+    transition: background 0.3s ease;
+}
+
+.theme-toggle {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: var(--container-bg);
+    border: 2px solid var(--border-accent);
+    border-radius: 50%;
+    width: 50px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    z-index: 1000;
+    box-shadow: 0 4px 10px var(--shadow);
+}
+
+.theme-toggle:hover {
+    transform: scale(1.1);
+    box-shadow: 0 6px 15px var(--shadow);
+}
+
+.theme-toggle:active {
+    transform: scale(0.95);
 }
 
 .container {
-    background: white;
+    background: var(--container-bg);
     border-radius: 10px;
-    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 10px 40px var(--shadow);
     padding: 30px;
     max-width: 500px;
     width: 100%;
+    transition: background 0.3s ease;
 }
 
 h1 {
-    color: #333;
+    color: var(--text-primary);
     margin-bottom: 25px;
     text-align: center;
     font-size: 28px;
@@ -39,20 +107,22 @@ h1 {
 .todo-input {
     flex: 1;
     padding: 12px 15px;
-    border: 2px solid #e0e0e0;
+    border: 2px solid var(--input-border);
     border-radius: 5px;
     font-size: 16px;
     transition: border-color 0.3s;
+    background: var(--container-bg);
+    color: var(--text-primary);
 }
 
 .todo-input:focus {
     outline: none;
-    border-color: #667eea;
+    border-color: var(--input-focus);
 }
 
 .add-btn {
     padding: 12px 25px;
-    background: #667eea;
+    background: var(--button-bg);
     color: white;
     border: none;
     border-radius: 5px;
@@ -63,7 +133,7 @@ h1 {
 }
 
 .add-btn:hover {
-    background: #5568d3;
+    background: var(--button-hover);
 }
 
 .add-btn:active {
@@ -79,26 +149,26 @@ h1 {
     justify-content: space-between;
     align-items: center;
     padding: 15px;
-    background: #f9f9f9;
+    background: var(--todo-bg);
     border-radius: 5px;
     margin-bottom: 10px;
-    border-left: 4px solid #667eea;
+    border-left: 4px solid var(--border-accent);
     transition: all 0.3s;
 }
 
 .todo-item:hover {
-    background: #f0f0f0;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    background: var(--todo-hover);
+    box-shadow: 0 2px 8px var(--shadow-hover);
 }
 
 .todo-text {
     flex: 1;
-    color: #333;
+    color: var(--text-primary);
     font-size: 16px;
 }
 
 .delete-btn {
-    background: #ff6b6b;
+    background: var(--delete-bg);
     color: white;
     border: none;
     padding: 8px 15px;
@@ -110,7 +180,7 @@ h1 {
 }
 
 .delete-btn:hover {
-    background: #ff5252;
+    background: var(--delete-hover);
 }
 
 .delete-btn:active {
@@ -122,17 +192,17 @@ h1 {
     height: 20px;
     margin-right: 12px;
     cursor: pointer;
-    accent-color: #667eea;
+    accent-color: var(--border-accent);
 }
 
 .todo-item.completed .todo-text {
     text-decoration: line-through;
-    color: #999;
+    color: var(--text-secondary);
 }
 
 .empty-message {
     text-align: center;
-    color: #999;
+    color: var(--text-secondary);
     padding: 30px 0;
     font-size: 16px;
 }
