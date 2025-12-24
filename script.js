@@ -86,8 +86,9 @@ function deleteTodo(id) {
     if (todoItem) {
         todoItem.classList.add('removing');
         // Get animation duration from CSS variable
-        const animationDuration = parseInt(getComputedStyle(document.documentElement)
-            .getPropertyValue('--animation-duration')) || 300;
+        const duration = getComputedStyle(document.documentElement)
+            .getPropertyValue('--animation-duration').trim();
+        const animationDuration = parseFloat(duration) || 300;
         setTimeout(() => {
             todoItem.remove();
             saveTodos();
