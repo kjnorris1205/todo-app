@@ -84,8 +84,11 @@ function addTodoToDOM(todo) {
 function deleteTodo(id) {
     const todoItem = document.querySelector(`[data-id="${id}"]`);
     if (todoItem) {
-        todoItem.remove();
-        saveTodos();
+        todoItem.classList.add('removing');
+        setTimeout(() => {
+            todoItem.remove();
+            saveTodos();
+        }, 300);
     }
 }
 
