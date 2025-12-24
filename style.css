@@ -103,7 +103,7 @@ body {
     max-width: 540px;
     width: 100%;
     transition: background 0.3s ease;
-    backdrop-filter: blur(10px);
+    backdrop-filter: blur(10px); /* Progressive enhancement - gracefully degrades if unsupported */
 }
 
 h1 {
@@ -279,6 +279,23 @@ h1 {
     padding: 40px 0;
     font-size: 16px;
     font-weight: 500;
+}
+
+/* Respect user's motion preferences */
+@media (prefers-reduced-motion: reduce) {
+    * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+    }
+    
+    body {
+        animation: none !important;
+    }
+    
+    .todo-item {
+        animation: none !important;
+    }
 }
 
 /* Responsive adjustments */
